@@ -24,12 +24,11 @@ def nii_merge(file_a,file_b,axis):
     V = np.concatenate([Va,Vb],axis=axis)
     return V
 
-def ImageRescale(img,I_range):
-    val_max = img.max()
-    val_min = img.min()
-    val_range = val_max-val_min
-    opt = (img-val_min)/val_range*(I_range[1]-I_range[0])-I_range[0]
-    return np.float32(opt)
+def ImageRescale(im, I_range):
+	im_range = im.max() - im.min()
+	target_range = I_range[1] - I_range[0]
+	target = I_range[0] + target_range/im_range * (im - im.min())
+	return np.float32(target)
 
 def ImageCrop(img,p1,p2):
     '''
