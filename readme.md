@@ -16,5 +16,7 @@ can significantly improve the image quality with a simple working pipeline and a
 
 The overall pipeline of the work is shown as following:
 <p align="center">
-  <img src="/assets/pipeline.png" alt="drawing" width="500"/>
+  <img src="/assets/workflow.png" alt="drawing" width="650"/>
 </p>
+
+
