@@ -20,3 +20,15 @@ The overall pipeline of the work is shown as following:
 </p>
 
 
+Please cite our work:
+```
+  @inproceedings{hu2022unsupervised,
+  title={Unsupervised denoising of retinal OCT with diffusion probabilistic model},
+  author={Hu, Dewei and Tao, Yuankai K and Oguz, Ipek},
+  booktitle={Medical Imaging 2022: Image Processing},
+  volume={12032},
+  pages={25--34},
+  year={2022},
+  organization={SPIE}
+}
+```
