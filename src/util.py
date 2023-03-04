@@ -8,6 +8,7 @@ Created on Sat Mar 21 18:16:56 2020
 import nibabel as nib
 import numpy as np
 import os
+from PIL import Image
 
 def nii_loader(dir):
     data_nii = nib.load(dir)
@@ -25,10 +26,15 @@ def nii_merge(file_a,file_b,axis):
     return V
 
 def ImageRescale(im, I_range):
-	im_range = im.max() - im.min()
-	target_range = I_range[1] - I_range[0]
-	target = I_range[0] + target_range/im_range * (im - im.min())
-	return np.float32(target)
+    im_range = im.max() - im.min()
+    target_range = I_range[1] - I_range[0]
+    
+    if im_range == 0:
+        target = np.zeros(im.shape, dtype=np.float32)
+    else:
+        target = I_range[0] + target_range/im_range * (im - im.min())
+    return np.float32(target)
+
 
 def ImageCrop(img,p1,p2):
     '''
@@ -101,25 +107,30 @@ def sim_stat(im,template):
     
     return sensitivity,1-specificity,accuracy
 
-def colorseg(label, pred):
-    label = np.uint8(label > 0)
+def ColorSeg(pred, gt):
+    h, w = pred.shape
+    tn_color = np.array(Image.new('RGB', (w, h), "seashell"))
+    tp_color = np.array(Image.new('RGB', (w, h), "navy"))
+    fp_color = np.array(Image.new('RGB', (w, h), "limegreen"))
+    fn_color = np.array(Image.new('RGB', (w, h), "crimson"))
     
-    h,w = label.shape
-    template = np.zeros([h,w,3],dtype=np.uint8)
+    true = np.uint8(pred == gt)
+    tp_mask = true * gt
+    tp_mask = np.repeat(tp_mask[:, :, np.newaxis], 3, axis=2)
     
-    true = np.uint8(pred == label)
-    for i in range(3):
-        template[:,:,i] = 255 * true * label
+    tn_mask = true * (1-gt)
+    tn_mask = np.repeat(tn_mask[:, :, np.newaxis], 3, axis=2)
     
-    # green for false positive
-    fp = np.uint8(pred > label)
-    template[:,:,1] = fp * 255 + 255 * true * label
-#    
-    # red for false negative
-    fn = np.uint8(pred < label)
-    template[:,:,0] = fn *255 + 255 * true * label
+    fp_mask = np.uint8(pred > gt)
+    fp_mask = np.repeat(fp_mask[:, :, np.newaxis], 3, axis=2)
     
-    return template
+    fn_mask = np.uint8(pred < gt)
+    fn_mask = np.repeat(fn_mask[:, :, np.newaxis], 3, axis=2)
+    
+    im_color = tp_color * tp_mask + tn_color * tn_mask + \
+               fp_color * fp_mask + fn_color * fn_mask
+    
+    return im_color
     
 def hist_match(source, template):
     """
