@@ -32,7 +32,7 @@ def ImageRescale(im, I_range):
     if im_range == 0:
         target = np.zeros(im.shape, dtype=np.float32)
     else:
-        target = I_range[0] - target_range/im_range * (im - im.min())
+        target = I_range[0] + target_range/im_range * (im - im.min())
     return np.float32(target)
 
 
