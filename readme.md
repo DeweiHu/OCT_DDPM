@@ -29,7 +29,9 @@ The code is arranged as following:
                         network architecture: DDPM_Net.py
                                     training: DDPM_main.py
                                      testing: DDPM_test.py
-    
+
+### Checkpoints
+In the ckpts folder, the model used to denoise the retina OCT is provided. Note that the intensity should be normalized to range [1,3] for this model.
 
 Please cite our work:
 ```
