@@ -5,10 +5,6 @@ Created on Thu Jul  1 16:26:31 2021
 @author: hudew
 """
 
-import sys
-sys.path.insert(0,'C:\\Users\\hudew\\OneDrive\\桌面\\VI,NF,DDPM\\')
-sys.path.insert(0,'E:\\tools\\')
-
 import util
 from DDPM_GaussianDiffusion import GaussianDiffusion, get_beta_schedule
 from OCT_dataloader import load_test_data
