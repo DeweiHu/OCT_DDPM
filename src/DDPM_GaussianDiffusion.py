@@ -5,10 +5,6 @@ Created on Mon Jul 12 10:02:03 2021
 @author: hudew
 """
 
-import sys
-sys.path.insert(0,'C:\\Users\\hudew\\OneDrive\\桌面\\VI,NF,DDPM\\')
-sys.path.insert(0,'E:\\tools\\')
-
 import util
 import torch
 import numpy as np
