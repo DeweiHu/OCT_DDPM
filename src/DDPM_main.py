@@ -5,10 +5,6 @@ Created on Fri Jun 18 16:02:42 2021
 @author: hudew
 """
 
-import sys
-sys.path.insert(0,'C:\\Users\\hudew\\OneDrive\\桌面\\VI,NF,DDPM\\')
-sys.path.insert(0,'E:\\tools\\')
-
 import util
 #from DDPM_cifar_dataloader import load_data
 from OCT_dataloader import load_train_data
