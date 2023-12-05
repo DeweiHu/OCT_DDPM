@@ -34,7 +34,7 @@ class trainDataset(Dataset):
             
             for j in range(nslc):
                 im = np.zeros([512,512],dtype=np.float32)
-                im = util.ImageRescale(vol[j,:,:],[-1,1])
+                im = util.ImageRescale(vol[j,:,:],[1,3])
                 self.data.append(im)
     
     def __len__(self):
